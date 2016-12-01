@@ -4,7 +4,7 @@ import {match, RouterContext} from 'react-router';
 import uiRoutes from './Routes';
 
 export default (req, res, next) => {
-    
+
     match({routes: uiRoutes, location: req.url}, (error, redirectLocation, renderProps) => {
         if (error) {
             res.status(500).send(error.message)
@@ -16,9 +16,10 @@ export default (req, res, next) => {
                 title: 'react seed homepage',
                 config: {
                     'vendor.js': '/assets/js/vendor-dev.js',
-                    'main.js': '/assets/js/main-dev.js'
+                    'main.js': '/assets/js/main-dev.js',
+                    'main.css': '/assets/css/main-dev.css'
                 },
-                body: renderToString(<RouterContext {...renderProps} />)
+                body: '<div>' + renderToString(<RouterContext {...renderProps} />) + '</div>'
             });
         } else {
             res.status(404).send('Not found')

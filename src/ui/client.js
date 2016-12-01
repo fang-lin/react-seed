@@ -1,8 +1,16 @@
 "use strict";
 
 import React from 'react';
-import {render} from 'react-dom'
-import {Router, Route, Link, browserHistory} from 'react-router'
-import Routes from './Routes'
+import {render} from 'react-dom';
+import {Router, Route, Link, browserHistory, hashHistory} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
+import Root from './containers/Root/Root';
+import configureStore from './store/configureStore'
 
-render(<Router history={browserHistory}>{Routes}</Router>, document.getElementById('body'));
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
+
+render(
+    <Root history={history} store={store}/>,
+    document.getElementById('body')
+);
